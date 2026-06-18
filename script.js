@@ -138,9 +138,8 @@ const menuData = {
         { name: 'Duraznos con Crema', hasSizes: true }
     ],
     especiales: [
-        { name: 'Cheesecake Oreo', price: 50, hasSizes: false },
-        { name: 'Carlota de Limón', price: 30, hasSizes: false },
-        { name: 'Flan', price: 40, hasSizes: false }
+        { name: 'Flan', price: 40, hasSizes: false },
+        { name: 'Flan de Chocolate', price: 40, hasSizes: false }
     ],
     snacks: [
         { name: 'Alitas', price: 70, hasSizes: false, hasFlavors: true },
