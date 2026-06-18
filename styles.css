@@ -1003,3 +1003,25 @@ select:focus, .input-row-clean input:focus {
     font-size: 0.9rem;
     opacity: 0.6;
 }
+
+/* Custom Leaflet Map styling to match Cyberpunk Dark Theme */
+.leaflet-container {
+    background: var(--bg-darker) !important;
+    font-family: inherit;
+}
+.leaflet-bar a {
+    background-color: rgba(14, 6, 26, 0.9) !important;
+    color: var(--text-white) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-bar a:hover {
+    background-color: var(--neon-pink) !important;
+    color: var(--text-white) !important;
+    box-shadow: var(--shadow-neon-pink);
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: rgba(14, 6, 26, 0.95) !important;
+    color: var(--text-white) !important;
+    border: 1px solid rgba(255, 0, 127, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+}

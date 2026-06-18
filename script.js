@@ -196,9 +196,79 @@ const cartTotalAmount = document.getElementById('cart-total-amount');
 
 let cart = [];
 
+let map;
+let marker;
+
+function initMap() {
+    // Default coordinates (Mexico City: 19.4326, -99.1332)
+    const defaultLat = 19.4326;
+    const defaultLng = -99.1332;
+
+    document.getElementById('lat-input').value = defaultLat;
+    document.getElementById('lng-input').value = defaultLng;
+
+    map = L.map('map').setView([defaultLat, defaultLng], 13);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    }).addTo(map);
+
+    const customIcon = L.icon({
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    marker = L.marker([defaultLat, defaultLng], {
+        draggable: true,
+        icon: customIcon
+    }).addTo(map);
+
+    marker.on('dragend', function (e) {
+        const position = marker.getLatLng();
+        document.getElementById('lat-input').value = position.lat.toFixed(6);
+        document.getElementById('lng-input').value = position.lng.toFixed(6);
+    });
+
+    // Try to auto-locate on init
+    getCurrentLocationGPS();
+}
+
+function getCurrentLocationGPS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            document.getElementById('lat-input').value = lat.toFixed(6);
+            document.getElementById('lng-input').value = lng.toFixed(6);
+            
+            if (map && marker) {
+                const newLatLng = new L.LatLng(lat, lng);
+                marker.setLatLng(newLatLng);
+                map.setView(newLatLng, 16);
+            }
+        }, function (error) {
+            console.warn("Error getting geolocation:", error);
+        });
+    }
+}
+
 function openOrderModal() {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Initialize map on first open after a small delay so DOM is ready
+    setTimeout(() => {
+        if (!map) {
+            initMap();
+        } else {
+            map.invalidateSize();
+            getCurrentLocationGPS();
+        }
+    }, 300);
 }
 
 function closeOrderModal() {
@@ -320,16 +390,23 @@ function clearCart() {
 function sendOrderWhatsApp() {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('whatsapp-input').value;
-    if (!name || !phone) return alert('Por favor completa tus datos');
+    const address = document.getElementById('address-input').value;
+    const lat = document.getElementById('lat-input').value;
+    const lng = document.getElementById('lng-input').value;
+
+    if (!name || !phone || !address) return alert('Por favor completa tus datos (Nombre, Teléfono y Dirección)');
     if (phone.length !== 10) return alert('El número de WhatsApp debe tener exactamente 10 dígitos');
     if (cart.length === 0) return alert('Añade productos a tu carrito');
+
     let total = 0;
     let itemsText = '';
     cart.forEach(item => {
         itemsText += `- ${item.name}: $${item.price.toFixed(2)}%0A`;
         total += item.price;
     });
-    const message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
+
+    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+    const message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Dirección:* ${address}%0A*Ubicación GPS:* ${googleMapsUrl}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
 }
 

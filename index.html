@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <!-- Leaflet CSS & JS for open-source mapping (no API key required) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -176,6 +180,19 @@
                         <div class="input-row-clean">
                             <input type="text" id="name" placeholder="Tu nombre" required>
                             <input type="tel" id="whatsapp-input" placeholder="Tu WhatsApp (10 dígitos)" required pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        <div class="input-field-clean" style="margin-top: 1.5rem;">
+                            <label>Dirección de Entrega</label>
+                            <input type="text" id="address-input" placeholder="Calle, número, colonia..." required>
+                        </div>
+                        <div class="map-section" style="margin-top: 1.5rem;">
+                            <label style="font-size: 0.95rem; font-weight: 700; color: var(--neon-blue); display: block; margin-bottom: 0.6rem; text-transform: uppercase;">📍 Ajusta tu ubicación en el mapa:</label>
+                            <div id="map" style="height: 200px; border-radius: 18px; border: 2px solid rgba(255, 255, 255, 0.08); z-index: 10;"></div>
+                            <input type="hidden" id="lat-input">
+                            <input type="hidden" id="lng-input">
+                            <button type="button" class="btn-option-add" onclick="getCurrentLocationGPS()" style="margin-top: 0.8rem; width: 100%; font-size: 0.9rem; padding: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                📡 Usar mi ubicación GPS actual
+                            </button>
                         </div>
                     </div>
 
