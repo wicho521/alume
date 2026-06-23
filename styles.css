@@ -984,19 +984,29 @@ select:focus, .input-row-clean input:focus {
 .social-links-clean { 
     display: flex; 
     justify-content: center; 
+    align-items: center;
     gap: 2rem; 
     margin-bottom: 2.5rem; 
 }
 .social-links-clean a { 
-    color: var(--neon-blue); 
-    text-decoration: none; 
-    font-weight: 700; 
     transition: var(--transition);
-    text-shadow: 0 0 5px rgba(0, 240, 255, 0.15);
+    display: inline-block;
 }
 .social-links-clean a:hover {
-    color: var(--text-white);
-    text-shadow: var(--shadow-neon-blue);
+    transform: translateY(-4px) scale(1.1);
+}
+.social-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+.social-links-clean a:hover .social-icon {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue-glow);
 }
 .copy {
     color: var(--text-muted);

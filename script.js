@@ -426,11 +426,10 @@ function clearCart() {
 function sendOrderWhatsApp() {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('whatsapp-input').value;
-    const address = document.getElementById('address-input').value;
     const lat = document.getElementById('lat-input').value;
     const lng = document.getElementById('lng-input').value;
 
-    if (!name || !phone || !address) return alert('Por favor completa tus datos (Nombre, Teléfono y Dirección)');
+    if (!name || !phone) return alert('Por favor completa tus datos (Nombre y Teléfono)');
     if (phone.length !== 10) return alert('El número de WhatsApp debe tener exactamente 10 dígitos');
     if (cart.length === 0) return alert('Añade productos a tu carrito');
 
@@ -442,7 +441,7 @@ function sendOrderWhatsApp() {
     });
 
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-    const message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Dirección:* ${address}%0A*Ubicación GPS:* ${googleMapsUrl}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
+    const message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Ubicación GPS:* ${googleMapsUrl}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
 }
 

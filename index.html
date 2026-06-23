@@ -181,10 +181,6 @@
                             <input type="text" id="name" placeholder="Tu nombre" required>
                             <input type="tel" id="whatsapp-input" placeholder="Tu WhatsApp (10 dígitos)" required pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
-                        <div class="input-field-clean" style="margin-top: 1.5rem;">
-                            <label>Dirección de Entrega</label>
-                            <input type="text" id="address-input" placeholder="Calle, número, colonia..." required>
-                        </div>
                         <div class="map-section" style="margin-top: 1.5rem;">
                             <label style="font-size: 0.95rem; font-weight: 700; color: var(--neon-blue); display: block; margin-bottom: 0.6rem; text-transform: uppercase;">📍 Ajusta tu ubicación en el mapa:</label>
                             <div id="map" style="height: 200px; border-radius: 18px; border: 2px solid rgba(255, 255, 255, 0.08); z-index: 10;"></div>
@@ -213,10 +209,15 @@
             </div>
             <p>"Postres y snacks que van contigo"</p>
             <div class="social-links-clean">
-                <a href="https://wa.me/525642831842" target="_blank">📱 WhatsApp</a>
-                <a href="https://www.facebook.com/share/1G3B9EDeP5/" target="_blank">🔵 Facebook</a>
-                <a href="https://www.instagram.com/melbet02?igsh=MTBkc2VkZ29icWk2cQ==" target="_blank">📸 Instagram</a>
-                <a href="https://www.tiktok.com/@melbet021?_r=1&_t=ZS-97KFEvNfzOx" target="_blank">🎵 TikTok</a>
+                <a href="https://www.facebook.com/share/1G3B9EDeP5/" target="_blank" title="Facebook">
+                    <img src="assets/facebook_logo.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://www.instagram.com/melbet02?igsh=MTBkc2VkZ29icWk2cQ==" target="_blank" title="Instagram">
+                    <img src="assets/instagram_logo.png" alt="Instagram" class="social-icon">
+                </a>
+                <a href="https://www.tiktok.com/@melbet021?_r=1&_t=ZS-97KFEvNfzOx" target="_blank" title="TikTok">
+                    <img src="assets/tiktok_logo.png" alt="TikTok" class="social-icon">
+                </a>
             </div>
             <p class="copy">&copy; 2026 ALUME Boutique. Dulzura Gourmet.</p>
         </div>
