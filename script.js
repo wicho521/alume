@@ -195,9 +195,36 @@ const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalAmount = document.getElementById('cart-total-amount');
 
 let cart = [];
+let deliveryMethod = 'delivery';
 
 let map;
 let marker;
+
+function setDeliveryMethod(method) {
+    deliveryMethod = method;
+    const btnDelivery = document.getElementById('btn-delivery');
+    const btnPickup = document.getElementById('btn-pickup');
+    const mapSection = document.getElementById('map-section');
+    const customerInfoTitle = document.getElementById('customer-info-title');
+
+    if (method === 'delivery') {
+        btnDelivery.classList.add('active');
+        btnPickup.classList.remove('active');
+        mapSection.style.display = 'block';
+        customerInfoTitle.textContent = 'Tus datos para el envío';
+        
+        if (map) {
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 50);
+        }
+    } else {
+        btnDelivery.classList.remove('active');
+        btnPickup.classList.add('active');
+        mapSection.style.display = 'none';
+        customerInfoTitle.textContent = 'Tus datos para pasar al puesto';
+    }
+}
 
 function initMap() {
     // Default coordinates (Mexico City: 19.4326, -99.1332)
@@ -207,7 +234,7 @@ function initMap() {
     document.getElementById('lat-input').value = defaultLat;
     document.getElementById('lng-input').value = defaultLng;
 
-    map = L.map('map').setView([defaultLat, defaultLng], 13);
+    map = L.map('map', { attributionControl: false }).setView([defaultLat, defaultLng], 13);
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -321,6 +348,7 @@ function resetModalInputs() {
     prodSelect.disabled = true;
     sizeGroup.style.display = 'none';
     flavorGroup.style.display = 'none';
+    setDeliveryMethod('delivery');
 }
 
 function updateProductOptions() {
@@ -440,8 +468,13 @@ function sendOrderWhatsApp() {
         total += item.price;
     });
 
-    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-    const message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Ubicación GPS:* ${googleMapsUrl}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
+    let message = '';
+    if (deliveryMethod === 'delivery') {
+        const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+        message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Entrega:* Envío a domicilio 🚀%0A*Ubicación GPS:* ${googleMapsUrl}%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
+    } else {
+        message = `*NUEVO PEDIDO ALUME 👾*%0A%0A*Nombre:* ${name}%0A*WhatsApp:* ${phone}%0A*Entrega:* Pasar al puesto 🏪%0A%0A*PRODUCTOS:*%0A${itemsText}%0A*TOTAL: $${total.toFixed(2)}*`;
+    }
     window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
 }
 

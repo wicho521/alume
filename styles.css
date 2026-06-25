@@ -719,6 +719,40 @@ select:focus, .input-row-clean input:focus {
     box-shadow: var(--shadow-neon-blue);
 }
 
+/* Delivery Toggle Selector */
+.delivery-toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+.delivery-toggle-btn {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.2rem;
+    border-radius: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.delivery-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-white);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.delivery-toggle-btn.active {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: var(--bg-darker);
+    border-color: transparent;
+    box-shadow: var(--shadow-neon-blue);
+}
+
 /* Cart Section Inside Modal */
 .cart-section-clean {
     background: rgba(2, 0, 5, 0.45);

@@ -170,14 +170,27 @@
                         </div>
                     </div>
 
-                    <!-- 3. Customer Info -->
+                    <!-- 3. Delivery Method Selection -->
+                    <div class="delivery-selection-clean" style="margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem;">¿Cómo deseas recibir tu pedido?</h3>
+                        <div class="delivery-toggle-group">
+                            <button type="button" id="btn-delivery" class="delivery-toggle-btn active" onclick="setDeliveryMethod('delivery')">
+                                🚀 Envío a domicilio
+                            </button>
+                            <button type="button" id="btn-pickup" class="delivery-toggle-btn" onclick="setDeliveryMethod('pickup')">
+                                🏪 Pasar al puesto
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Customer Info -->
                     <div class="customer-info-clean">
-                        <h3>Tus datos para el envío</h3>
+                        <h3 id="customer-info-title">Tus datos para el envío</h3>
                         <div class="input-row-clean">
                             <input type="text" id="name" placeholder="Tu nombre" required>
                             <input type="tel" id="whatsapp-input" placeholder="Tu WhatsApp (10 dígitos)" required pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
-                        <div class="map-section" style="margin-top: 1.5rem;">
+                        <div id="map-section" class="map-section" style="margin-top: 1.5rem;">
                             <label style="font-size: 0.95rem; font-weight: 700; color: var(--neon-blue); display: block; margin-bottom: 0.6rem; text-transform: uppercase;">📍 Ajusta tu ubicación en el mapa:</label>
                             <div id="map" style="height: 200px; border-radius: 18px; border: 2px solid rgba(255, 255, 255, 0.08); z-index: 10;"></div>
                             <input type="hidden" id="lat-input">
