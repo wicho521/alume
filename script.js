@@ -156,26 +156,6 @@ const menuData = {
 
 const WA_NUMBER = "525642831842";
 
-// --- Carousel Logic ---
-const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-const dots = Array.from(document.querySelectorAll('.bullet'));
-let currentSlideIndex = 0;
-
-function updateSlide(targetIndex) {
-    if (!slides[targetIndex]) return;
-    slides.forEach(s => s.classList.remove('current-slide'));
-    dots.forEach(d => d.classList.remove('active'));
-    slides[targetIndex].classList.add('current-slide');
-    dots[targetIndex].classList.add('active');
-    currentSlideIndex = targetIndex;
-}
-
-function autoPlay() { 
-    if (slides.length > 0) {
-        updateSlide((currentSlideIndex + 1) % slides.length); 
-    }
-}
-let carouselTimer = setInterval(autoPlay, 4000);
 
 // --- Scroll Progress ---
 window.addEventListener('scroll', () => {
