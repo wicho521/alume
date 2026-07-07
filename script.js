@@ -486,3 +486,85 @@ function reveal() {
 }
 window.addEventListener('scroll', reveal);
 reveal();
+
+// --- CYBERPUNK GALLERY CAROUSEL LOGIC ---
+let currentSlide = 0;
+let slideInterval;
+const slides = document.querySelectorAll('.carousel-slide');
+const dots = document.querySelectorAll('.carousel-dots .dot');
+
+function showSlide(index) {
+    if (slides.length === 0) return;
+    
+    if (index >= slides.length) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = slides.length - 1;
+    } else {
+        currentSlide = index;
+    }
+    
+    slides.forEach((slide, i) => {
+        if (i === currentSlide) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+    
+    dots.forEach((dot, i) => {
+        if (i === currentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+function goToSlide(index) {
+    showSlide(index);
+    resetSlideTimer();
+}
+
+function startSlideTimer() {
+    slideInterval = setInterval(nextSlide, 5500);
+}
+
+function resetSlideTimer() {
+    clearInterval(slideInterval);
+    startSlideTimer();
+}
+
+// Initialize Carousel Events
+(function initCarousel() {
+    const nextBtn = document.getElementById('carousel-next-btn');
+    const prevBtn = document.getElementById('carousel-prev-btn');
+    
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetSlideTimer();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetSlideTimer();
+        });
+        
+        const wrapper = document.querySelector('.carousel-wrapper');
+        if (wrapper) {
+            wrapper.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            wrapper.addEventListener('mouseleave', startSlideTimer);
+        }
+        
+        startSlideTimer();
+    }
+})();

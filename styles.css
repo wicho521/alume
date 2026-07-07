@@ -930,6 +930,177 @@ select:focus, .input-row-clean input:focus {
     transform: translateY(0);
 }
 
+
+/* --- CYBERPUNK GALLERY CAROUSEL --- */
+.gallery-carousel-section {
+    position: relative;
+    padding-bottom: 5rem;
+}
+.carousel-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(2, 0, 5, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    overflow: hidden;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 240, 255, 0.05);
+}
+.carousel-container {
+    position: relative;
+    height: 520px;
+    width: 100%;
+}
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    z-index: 1;
+}
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+}
+.carousel-slide.active img {
+    transform: scale(1.03);
+}
+.carousel-slide::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(2, 0, 5, 0.9) 0%, rgba(2, 0, 5, 0.45) 50%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+.carousel-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    right: 3rem;
+    z-index: 3;
+    color: var(--text-white);
+}
+.carousel-caption h3 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    filter: drop-shadow(0 2px 8px rgba(0, 240, 255, 0.3));
+}
+.carousel-caption p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(2, 0, 5, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 4;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.carousel-btn:hover {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: var(--bg-darker);
+    border-color: transparent;
+    box-shadow: var(--shadow-neon-blue);
+    transform: translateY(-50%) scale(1.1);
+}
+.prev-btn { left: 1.5rem; }
+.next-btn { right: 1.5rem; }
+
+.carousel-dots {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 4;
+}
+.carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.carousel-dots .dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+.carousel-dots .dot.active {
+    background: var(--neon-blue);
+    box-shadow: var(--shadow-neon-blue);
+    width: 24px;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        height: 380px;
+    }
+    .carousel-caption {
+        bottom: 2rem;
+        left: 1.5rem;
+        right: 1.5rem;
+    }
+    .carousel-caption h3 {
+        font-size: 1.6rem;
+    }
+    .carousel-caption p {
+        font-size: 0.95rem;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .prev-btn { left: 0.8rem; }
+    .next-btn { right: 0.8rem; }
+}
+
 /* MOBILE RESPONSIVENESS OVERHAUL */
 @media (max-width: 992px) {
     .container { padding: 0 1.5rem; }
